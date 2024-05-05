@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Página Elegante</title>
+
+  <style>
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      margin: 0;
+
+      padding: 0;
+
+      background-color: #f5f5f5;
+
+      color: #333;
+
+    }
+
+
+
+    .container {
+
+      width: 80%;
+
+      margin: 0 auto;
+
+      padding: 20px;
+
+      background-color: #fff;
+
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+      border-radius: 5px;
+
+      margin-top: 50px;
+
+    }
+
+
+
+    h1 {
+
+      color: #555;
+
+      text-align: center;
+
+    }
+
+
+
+    p {
+
+      line-height: 1.6;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+
+<div class="container">
+
+  <h1>Minha Página Elegante</h1>
+
+  <p>Esta é uma página simples, mas elegante, criada usando HTML e CSS.</p>
+
+  <p>Ela possui uma estrutura básica com um contêiner centralizado e um estilo limpo e moderno.</p>
+
+
+
+  <input type="text" id="texto" placeholder="Digite 'pucpr' aqui">
+
+</div>
+
+
+
+<script>
+
+  document.getElementById('texto').addEventListener('input', function() {
+
+    var textoDigitado = this.value.toLowerCase();
+
+    if (textoDigitado === 'pucpr') {
+
+      alert('Foi digitado: '+textoDigitado.toUpperCase());
+
+    }
+
+  });
+
+</script>
+
+
+
+</body>
+
+</html>
+

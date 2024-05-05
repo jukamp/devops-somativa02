@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker
+        run: docker build -t jukamp/devops-somativa-02 .
+
+      - name: Run docker
+        run: docker run -d -p 8080:80 jukamp/devops-somativa-02
+      
+      - name: SAST com SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: DAST com Zap
+        run: docker run --network host -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:8080
+        continue-on-error: true
+
+      - name: Enviar notificacao Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST \
+            https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
+            -d text="Scan de segurança e vulnerabilidade concluido." \
+            -d chat_id=${TELEGRAM_CHAT_ID}
+         
